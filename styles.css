@@ -1,0 +1,11 @@
+application {
+	padding: 20px;
+}
+
+application,
+todo-details,
+todo-list,
+todo-create,
+navigation {
+	display: block;
+}

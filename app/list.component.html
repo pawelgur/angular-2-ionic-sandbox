@@ -1,0 +1,22 @@
+<h2>Todo's:</h2>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr *ngFor="let todo of getTodos()" [class.done]="todo.isDone" >
+        <td>{{ todo.id }}</td>
+        <td class="title">{{ todo.title }}</td>
+        <td class="description">{{ todo.description }}</td>
+        <td>{{ todo.category }}</td>
+        <td><button (click)="toggleTodo(todo)" >Toggle</button></td>
+        <td><a [routerLink]="['Details', { id: todo.id }]">Edit</a></td>
+        <td><button (click)="deleteTodo(todo)" >Delete</button></td>
+    </tr>
+</table>
+<todo-create></todo-create>

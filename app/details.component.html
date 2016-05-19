@@ -1,0 +1,14 @@
+<h2>Todo {{todo.title}}:</h2>
+<form *ngIf="todo">
+    <label>Id:</label>
+    <span class="value">{{ todo.id }}</span><br/>
+
+    <label for="todo-title">Title:</label>
+    <input id="todo-title" type="text" [(ngModel)]="todo.title" disabled /><br/>
+
+    <label for="todo-description">Description:</label>
+    <input id="todo-description" type="text" [(ngModel)]="todo.description" disabled /><br/>
+
+    <label for="todo-category">Category:</label><input id="todo-category" type="text" [(ngModel)]="todo.category" disabled />
+    <!--<input type="submit" value="Create" />-->
+</form>
