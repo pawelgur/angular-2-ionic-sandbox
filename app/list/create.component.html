@@ -1,0 +1,11 @@
+<h2>Create todo:</h2>
+<form (submit)="onCreate()">
+    <label for="todo-description">Description:</label>
+    <!--
+        we use template reference variable (#descriptionInput) because:
+            - easy to use
+            - we leave input knowledge to template (e.g. that input has property "value") and not pass it with $event for component to retrieve
+        -->
+    <input id="todo-description" type="text" [(ngModel)]="description"  class="form-control" #descriptionInput required />
+    <input type="submit" value="Create '{{descriptionInput.value}}'" class="btn btn-success" />
+</form>

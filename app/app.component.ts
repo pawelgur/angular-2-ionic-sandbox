@@ -1,14 +1,18 @@
 import { Component } from "@angular/core";
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
-import {ListComponent} from "./list.component";
+import {ListComponent} from "./list/list.component";
 import {TodoService} from "./todo.service";
-import {DetailsComponent} from "./details.component";
-import {NavigationComponent} from "./navigation.component";
+import {DetailsComponent} from "./details/details.component";
+import {NavigationComponent} from "./common/navigation.component";
+import {LatestAddedComponent} from "./common/latest-added.component";
+import {LatestDoneComponent} from "./common/latest-done.component";
 
 @Component({
 	selector: "application",
 	templateUrl: "app/app.component.html",
-	directives: [ROUTER_DIRECTIVES, ListComponent, DetailsComponent, NavigationComponent],
+	directives: [
+		ROUTER_DIRECTIVES, ListComponent, DetailsComponent,
+		NavigationComponent, LatestAddedComponent, LatestDoneComponent],
 	providers: [ROUTER_PROVIDERS, TodoService]
 })
 @RouteConfig([

@@ -1,12 +1,12 @@
 import { Component } from "@angular/core";
 import { ROUTER_DIRECTIVES } from "@angular/router-deprecated";
-import {TodoService} from "./todo.service";
-import {TodoItem} from "./todo.model";
+import {TodoService} from "../todo.service";
+import {TodoItem} from "../todo.model";
 import {CreateComponent} from "./create.component";
 
 @Component({
 	selector: "todo-list",
-	templateUrl: "/app/list.component.html",
+	templateUrl: "/app/list/list.component.html",
 	directives: [CreateComponent, ROUTER_DIRECTIVES],
 	styles: [`
 		.done .title,

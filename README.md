@@ -3,6 +3,7 @@
 Learning angular 2 with ionic.
 
 Plan:
+
 1. Read in general about angular 2
 2. Create simple TODO app:
     1. Todo's list with filtering by group, delete functionality
@@ -18,12 +19,20 @@ Plan:
     * angular 2 sdk related topics
          - Observables (RXJS)
          - DI
+            * inject a configuration object into service
+            * create a factory and use it (create "test" page if needed)
+            * replace injectable service with its subclass
          - Zones
          - Change Detection
          - Unit testing
          - Creating a library
     * other angular 2 topics
     * ionic topics
+6. Other:
+    * create jsonstub endpoint and make an http request
+    * create an advanced form with custom validators
+    * create a pipe
+    * create simple animation
 
 
 Notes:
