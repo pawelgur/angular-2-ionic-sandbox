@@ -6,8 +6,8 @@ import {TodoService} from "./todo.service";
 	template: `
 	<h2>Create todo:</h2>
 	<form (submit)="onCreate()">
-		<label for="todo-description">Description:</label><input id="todo-description" type="text" [(ngModel)]="description"  />
-		<input type="submit" value="Create" />
+		<label for="todo-description">Description:</label><input id="todo-description" type="text" [(ngModel)]="description"  class="form-control" />
+		<input type="submit" value="Create" class="btn btn-success" />
 	</form>
 	`
 })

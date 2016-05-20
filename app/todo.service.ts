@@ -12,7 +12,7 @@ export class TodoService {
 		this.createTodo("Feed my snake");
 	}
 
-	createTodo(description: string, isDone? = false) {
+	createTodo(description: string, isDone = false) {
 		this.todos.push({
 			id: this.lastId,
 			description: description,

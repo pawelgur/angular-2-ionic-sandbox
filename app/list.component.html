@@ -1,5 +1,5 @@
 <h2>Todo's:</h2>
-<table>
+<table class="table">
     <tr>
         <th>Id</th>
         <th>Title</th>
@@ -14,9 +14,9 @@
         <td class="title">{{ todo.title }}</td>
         <td class="description">{{ todo.description }}</td>
         <td>{{ todo.category }}</td>
-        <td><button (click)="toggleTodo(todo)" >Toggle</button></td>
-        <td><a [routerLink]="['Details', { id: todo.id }]">Edit</a></td>
-        <td><button (click)="deleteTodo(todo)" >Delete</button></td>
+        <td><button (click)="toggleTodo(todo)" class="btn btn-success">Toggle</button></td>
+        <td><a [routerLink]="['Details', { id: todo.id }]" class="btn btn-default">Edit</a></td>
+        <td><button (click)="deleteTodo(todo)" class="btn btn-danger">Delete</button></td>
     </tr>
 </table>
 <todo-create></todo-create>

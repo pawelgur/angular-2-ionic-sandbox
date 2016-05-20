@@ -7,10 +7,7 @@ import {NavigationComponent} from "./navigation.component";
 
 @Component({
 	selector: "application",
-	template: `
-		<h1>This is super cool angular v2 app</h1>
-		<navigation></navigation>
-		<router-outlet></router-outlet>`,
+	templateUrl: "app/app.component.html",
 	directives: [ROUTER_DIRECTIVES, ListComponent, DetailsComponent, NavigationComponent],
 	providers: [ROUTER_PROVIDERS, TodoService]
 })

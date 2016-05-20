@@ -4,8 +4,8 @@ import { ROUTER_DIRECTIVES } from "@angular/router-deprecated";
 @Component({
 	selector: "navigation",
 	template: `
-	<nav>
-		<ul>
+	<nav class="navbar navbar-default">
+		<ul class="nav navbar-nav">
 			<li><a [routerLink]="['List']">List</a></li>
 		</ul>
 	</nav>`,
