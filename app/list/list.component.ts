@@ -28,7 +28,7 @@ export class ListComponent {
 	}
 
 	toggleTodo(todo: TodoItem) {
-		todo.isDone = !todo.isDone;
+		this.todoService.setTodoDone(todo, !todo.isDone);
 	}
 
 	deleteTodo(todo: TodoItem) {

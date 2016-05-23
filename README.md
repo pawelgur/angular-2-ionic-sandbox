@@ -30,6 +30,8 @@ Plan:
     * ionic topics
 6. Other:
     * create jsonstub endpoint and make an http request
+    * use event emitter to trigger event in component (e.g. timer with event of each 10s)
+    * use childView in parent component
     * create an advanced form with custom validators
     * create a pipe
     * create simple animation
@@ -38,4 +40,4 @@ Plan:
 Notes:
 * Target is to learn angular v2 and ionic, don't spend too much time on setting up systemjs,
 learning typescript, etc
-
+* use https://github.com/marcj/angular2-localStorage to save todo's?

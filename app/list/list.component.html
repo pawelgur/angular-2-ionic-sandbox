@@ -5,6 +5,7 @@
         <th>Title</th>
         <th>Description</th>
         <th>Category</th>
+        <th>Updated</th>
         <th></th>
         <th></th>
         <th></th>
@@ -14,6 +15,7 @@
         <td class="title">{{ todo.title }}</td>
         <td class="description">{{ todo.description }}</td>
         <td>{{ todo.category }}</td>
+        <td>{{ todo.updateDate | date:'mediumTime'  }}</td>
         <td><button (click)="toggleTodo(todo)" class="btn btn-success">Toggle</button></td>
         <td><a [routerLink]="['Details', { id: todo.id }]" class="btn btn-default">Edit</a></td>
         <td><button (click)="deleteTodo(todo)" class="btn btn-danger">Delete</button></td>
