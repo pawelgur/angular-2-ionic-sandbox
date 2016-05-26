@@ -14,7 +14,7 @@ Plan:
         * /details/id
     3. [x] Latest done and latest added components (use different update techniques)
 3. [x] Read in general about Ionic
-4. [ ] Transform todo app to Ionic
+4. [x] Transform todo app to Ionic
 5. [ ] Read about these topics in detail and try to implement some examples within app:
     * [ ] angular 2 sdk related topics
          - [ ] Observables (RXJS)
@@ -35,6 +35,7 @@ Plan:
     * [ ] advanced forms
         - [x] custom validators
         - [ ] custom form control (format value before setting to model)
+        - [ ] implement debounce
     * [ ] create a pipe
     * [ ] create simple animation
 
