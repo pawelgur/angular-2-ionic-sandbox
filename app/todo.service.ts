@@ -26,7 +26,8 @@ export class TodoService {
 			id: this.lastId,
 			description: description,
 			isDone: isDone,
-			updateDate: new Date()
+			updateDate: new Date(),
+			createDate: new Date()
 		};
 
 		this.todos.push(todo);

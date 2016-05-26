@@ -3,10 +3,7 @@ import {TodoItem} from "../todo.model";
 
 @Component({
 	selector: "todo-preview",
-	template: `
-		Id: {{todo.id}}, Title: {{todo.title}} <br />
-		Description: {{todo.description}} <br />
-	`
+	template: `<ion-badge secondary>[{{todo.id}}] {{todo.description}}</ion-badge>	`
 })
 export class TodoPreviewComponent {
 	@Input()

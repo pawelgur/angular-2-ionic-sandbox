@@ -3,18 +3,19 @@ import {TodoItem} from "../todo.model";
 import {TodoPreviewComponent} from "./todo-preview.component";
 import {TodoService} from "../todo.service";
 import {Subscription} from "rxjs/Subscription";
+import {NavController} from "ionic-angular/index";
 
 @Component({
 	selector: "latest-added",
 	template: `
-	<h5>Latest added ({{ updateTime | date:"short" }}):</h5>
+	<ion-icon name="add-circle" secondary medium></ion-icon>
+	<ion-badge>{{ latestTodo?.createDate | date:"HHmmss" }}</ion-badge>
 	<todo-preview [todo]="latestTodo" *ngIf="latestTodo"></todo-preview>
 	`,
 	directives: [TodoPreviewComponent]
 })
 export class LatestAddedComponent implements OnDestroy {
-	updateTime: Date = new Date();
-	_latestTodo: TodoItem;
+	latestTodo: TodoItem;
 	subscription = new Subscription();
 
 	constructor(
@@ -34,15 +35,6 @@ export class LatestAddedComponent implements OnDestroy {
 					}
 				})
 			);
-	}
-
-	set latestTodo(todo: TodoItem) {
-		this.updateTime = new Date();
-		this._latestTodo = todo;
-	}
-
-	get latestTodo() {
-		return this._latestTodo;
 	}
 
 	ngOnDestroy(): any {

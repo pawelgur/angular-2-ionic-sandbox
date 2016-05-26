@@ -7,14 +7,14 @@ import {Subscription} from "rxjs/Subscription";
 @Component({
 	selector: "latest-done",
 	template: `
-	<h5>Latest Done ({{ updateTime | date:"short" }}):</h5>
+	<ion-icon name="checkmark-circle" secondary medium></ion-icon>
+	<ion-badge>{{ latestDone?.updateDate | date:"HHmmss" }}</ion-badge>
 	<todo-preview [todo]="latestDone" *ngIf="latestDone"></todo-preview>
 	`,
 	directives: [TodoPreviewComponent]
 })
 export class LatestDoneComponent implements OnDestroy {
-	updateTime: Date = new Date();
-	_latestDone: TodoItem;
+	latestDone: TodoItem;
 	subscription = new Subscription();
 
 	constructor(
@@ -46,15 +46,6 @@ export class LatestDoneComponent implements OnDestroy {
 		if (this.latestDone === todo) {
 			this.latestDone = this.todoService.getLatestDone();
 		}
-	}
-
-	set latestDone(todo: TodoItem) {
-		this.updateTime = new Date();
-		this._latestDone = todo;
-	}
-
-	get latestDone() {
-		return this._latestDone;
 	}
 
 	ngOnDestroy(): any {

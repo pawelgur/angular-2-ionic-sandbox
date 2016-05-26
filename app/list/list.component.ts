@@ -1,13 +1,14 @@
 import { Component } from "@angular/core";
-import { ROUTER_DIRECTIVES } from "@angular/router-deprecated";
 import {TodoService} from "../todo.service";
 import {TodoItem} from "../todo.model";
 import {CreateComponent} from "./create.component";
+import {ActionSheet, NavController} from "ionic-angular";
+import {DetailsPage} from "../details/details.page";
 
 @Component({
 	selector: "todo-list",
-	templateUrl: "/app/list/list.component.html",
-	directives: [CreateComponent, ROUTER_DIRECTIVES],
+	templateUrl: "build/list/list.component.html",
+	directives: [CreateComponent],
 	styles: [`
 		.done .title,
 		.done .description{
@@ -16,9 +17,9 @@ import {CreateComponent} from "./create.component";
 	`]
 })
 export class ListComponent {
-
 	constructor(
-		private todoService: TodoService
+		private todoService: TodoService,
+		private nav: NavController
 	){
 	}
 
@@ -33,6 +34,29 @@ export class ListComponent {
 
 	deleteTodo(todo: TodoItem) {
 		this.todoService.removeTodo(todo);
+	}
+
+	showActions(todo: TodoItem) {
+		let sheet = ActionSheet.create({
+			title: todo.title ? `${todo.description} [${todo.title}]` : todo.description,
+			buttons: [
+				{
+					text: 'Edit',
+					handler: () => {
+						// not really needed but demonstrates transition chaining
+						let dissmissing = sheet.dismiss();
+						dissmissing.then(() => this.nav.push(DetailsPage, { todo: todo }));
+						return false;
+					}
+				},
+				{
+					text: "Delete",
+					role: "destructive",
+					handler: () => this.deleteTodo(todo)
+				}
+			]
+		});
+		this.nav.present(sheet);
 	}
 
 }

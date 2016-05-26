@@ -3,7 +3,7 @@ import {TodoService} from "../todo.service";
 
 @Component({
 	selector: "todo-create",
-	templateUrl: "app/list/create.component.html"
+	templateUrl: "build/list/create.component.html"
 })
 export class CreateComponent {
 	description: string;

@@ -5,4 +5,5 @@ export interface TodoItem {
 	category?: string;
 	isDone: boolean;
 	updateDate: Date;
+	createDate: Date;
 }

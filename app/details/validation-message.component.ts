@@ -1,8 +1,10 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input} from "@angular/core";
 
 @Component({
 	selector: "validation-message",
-	template: `<span *ngFor="let error of errorsList" class="help-block">{{error}}</span>`
+	template: `<div *ngFor="let error of errorsList" class="help-block">
+		<ion-icon name="warning"></ion-icon>{{error}}
+	</div>`
 })
 export class ValidationMessageComponent {
 	errorsList: string[];
