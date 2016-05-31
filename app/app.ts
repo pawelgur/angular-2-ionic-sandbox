@@ -1,14 +1,16 @@
 import {ViewChild} from "@angular/core";
+import {HTTP_PROVIDERS} from "@angular/http";
 import {App, MenuController, Nav} from 'ionic-angular';
 import {HomePage} from "./home/home.page";
 import {ListPage} from "./list/list.page";
 import {TodoService} from "./todo.service";
 import {FooterComponent} from "./common/footer.component";
-
+import {TodoClient} from "./todo.client";
+import "./rxjs-operators";
 
 @App({
   templateUrl: 'build/app.html',
-  providers: [TodoService],
+  providers: [HTTP_PROVIDERS, TodoService, TodoClient],
   directives: [FooterComponent],
   config: {} // http://ionicframework.com/docs/v2/api/config/Config/
 })

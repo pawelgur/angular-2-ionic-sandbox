@@ -21,7 +21,7 @@ export class LatestAddedComponent implements OnDestroy {
 	constructor(
 		private todoService: TodoService
 	){
-		this.latestTodo = todoService.getLatestAdded();
+		this.updateLatest();
 
 		this.subscription
 			.add(
@@ -30,8 +30,8 @@ export class LatestAddedComponent implements OnDestroy {
 				})
 			).add(
 				this.todoService.deletedTodosStream.subscribe((todo: TodoItem) => {
-					if (this.latestTodo === todo) {
-						this.latestTodo = this.todoService.getLatestAdded();
+					if (this.latestTodo && this.latestTodo.id === todo.id) {
+						this.updateLatest();
 					}
 				})
 			);
@@ -39,5 +39,12 @@ export class LatestAddedComponent implements OnDestroy {
 
 	ngOnDestroy(): any {
 		this.subscription.unsubscribe();
+	}
+
+	updateLatest() {
+		this.todoService.getLatestAdded()
+			.subscribe((todo: TodoItem) => {
+				this.latestTodo = todo;
+			});
 	}
 }

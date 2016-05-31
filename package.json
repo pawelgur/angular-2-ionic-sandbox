@@ -1,7 +1,7 @@
 {
-  "name": "angular-2-ionic-sandbox",
+  "name": "ionic-app",
   "version": "1.0.0",
-  "description": "Learning angular 2 with ionic",
+  "description": "ionic-app: An Ionic project",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pawelgur/angular-2-ionic-sandbox.git"
@@ -40,10 +40,9 @@
     "ionic-gulp-html-copy": "^1.0.0",
     "ionic-gulp-sass-build": "^1.0.0",
     "ionic-gulp-scripts-copy": "^2.0.0",
-    "run-sequence": "1.1.5"
+    "run-sequence": "1.1.5",
+    "simple-restful": "^1.3.0"
   },
-  "name": "ionic-app",
-  "description": "ionic-app: An Ionic project",
   "cordovaPlugins": [
     "cordova-plugin-device",
     "cordova-plugin-console",

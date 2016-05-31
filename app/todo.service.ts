@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs/Subject";
 import {TodoItem} from "./todo.model";
+import {TodoClient} from "./todo.client";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class TodoService {
-	private todos: TodoItem[] = [];
 	private lastId = 0;
 
 	private newTodosSource = new Subject<TodoItem>();
@@ -15,70 +16,103 @@ export class TodoService {
 	deletedTodosStream = this.deletedTodosSource.asObservable();
 	updatedTodosStream = this.updatedTodosSource.asObservable();
 
-	constructor() {
-		this.createTodo("Wash your car");
-		this.createTodo("Catch a rat", true);
-		this.createTodo("Feed my snake");
-	}
+	constructor(
+		private todoClient: TodoClient
+	) {}
 
-	createTodo(description: string, isDone = false) {
+	createTodo(description: string, isDone = false): Observable<any> {
 		let todo: TodoItem = {
-			id: this.lastId,
+			id: this.lastId + 1,
 			description: description,
 			isDone: isDone,
 			updateDate: new Date(),
 			createDate: new Date()
 		};
 
-		this.todos.push(todo);
-		this.lastId++;
+		// NOTE: http streams are closed when response is received, no need to keep track of subscriptions and unsubscribe
+		let creating = this.todoClient.createTodo(todo);
+		creating.subscribe(() => {
+			this.lastId = todo.id;
+			this.newTodosSource.next(todo);
+		});
 
-		this.newTodosSource.next(todo);
+		return creating;
 	}
 
-	removeTodo(todo: TodoItem) {
-		this.todos.splice(this.todos.indexOf(todo), 1);
+	removeTodo(todo: TodoItem): Observable<any> {
+		let deleting = this.todoClient.deleteTodo(todo.id);
+		deleting.subscribe(() => this.deletedTodosSource.next(todo));
 
-		this.deletedTodosSource.next(todo);
+		return deleting;
 	}
 
-	getTodo(id: number) {
-		return this.todos.find((item: TodoItem) => item.id === id);
+	getTodo(id: number): Observable<TodoItem> {
+		return this.todoClient.getTodo(id);
 	}
 
-	getTodos(): TodoItem[] {
-		return this.todos;
+	getTodos(): Observable<TodoItem[]> {
+		let gettingTodos = this.todoClient.getTodos();
+
+		// todo: caching, update it on any update
+
+		// ugly solution, but id would be generated on server in real app
+		gettingTodos.subscribe((todos: TodoItem[]) => {
+			console.log("running getTodos subscribe");
+			if (todos.length) {
+				this.lastId = todos[todos.length - 1].id;
+			}
+		});
+
+		return gettingTodos;
 	}
 
-	setTodoDone(todo: TodoItem, isDone = true) {
-		todo.isDone = isDone;
+	saveTodo(todo: TodoItem): Observable<any> {
 		todo.updateDate = new Date();
 
-		this.updatedTodosSource.next(todo);
+		let updating = this.todoClient.updateTodo(todo);
+		updating.subscribe(() => {
+			this.updatedTodosSource.next(todo);
+		});
+
+		return updating;
+	}
+
+	setDone(todo: TodoItem, isDone = true) {
+		todo.isDone = isDone;
+		this.saveTodo(todo);
 	}
 
 	// decided to add updateDate and getLatest... method instead of using Subject buffer, because latter
 	// is not 100% error prone unless using big buffer which might affect performance
 	// e.g. having buffer size 5, when five new message will be pushed we'll loose last done item
-	getLatestDone(): TodoItem {
-		return this.todos
-			.slice()
-			.sort((a: TodoItem, b: TodoItem) => {
-				if (a.updateDate < b.updateDate) {
-					return -1;
-				}
-				if (a.updateDate > b.updateDate) {
-					return 1;
-				}
-				return 0;
-			})
-			.reverse()
-			.find((todo: TodoItem) => todo.isDone);
+	getLatestDone(): Observable<TodoItem> {
+		return this.getTodos()
+			.map((todos: TodoItem[]) => {
+				return todos
+					.sort(this.todoUpdateComparator)
+					.reverse()
+					.find((todo: TodoItem) => todo.isDone);
+			});
 	}
 
-	getLatestAdded(): TodoItem {
-		return this.todos[this.todos.length - 1];
+	getLatestAdded(): Observable<TodoItem> {
+		return this.getTodos()
+			.map((todos: TodoItem[]) => {
+				if (todos.length) {
+					return todos[todos.length - 1];
+				}
+				return null;
+			});
 	}
 
+	todoUpdateComparator(a: TodoItem, b: TodoItem): number {
+		if (a.updateDate < b.updateDate) {
+			return -1;
+		}
+		if (a.updateDate > b.updateDate) {
+			return 1;
+		}
+		return 0;
+	}
 
 }

@@ -29,7 +29,7 @@ Plan:
     * [ ] other angular 2 topics
     * [ ] ionic topics
 6. [ ] Other:
-    * [ ] create jsonstub endpoint and make an http request
+    * [x] create test api endpoint and make an http request
     * [ ] use event emitter to trigger event in component (e.g. timer with event of each 10s)
     * [ ] use childView in parent component
     * [ ] advanced forms
@@ -38,6 +38,7 @@ Plan:
         - [ ] implement debounce
     * [ ] create a pipe
     * [ ] create simple animation
+    * [ ] create angular2 + ionic project from scratch (configuring all build and run explicitly, without using seed)
 
 
 Notes:

@@ -1,0 +1,34 @@
+<!-- simple html input, no angular here -->
+
+<input type="text" name="title" />
+
+<!--
+	ngModel directive binds input DOM element to data model, it is not related to Form (class) or FormControl
+ -->
+
+<input type="text" [(ngModel)]="todo.title" />
+<input type="text" [ngModel]="todo.title" (ngModelChange)="todo.title=$event" />
+
+<!--
+	ngControl creates Control (class) for input in [ng]Form and adds it to ngForm.form (:ControlGroup) instance as a child.
+	Control has a value, validation state, validators, etc.
+	It binds Control to input, tracks changes, runs validators.
+	Input name needs to be supplied in order to identify it in ngForm.form.controls
+	It's not related to ngModel.
+ -->
+
+<input type="text" ngControl="title" />
+
+<!--
+   ngFormControl binds input to some custom Control instance (e.g. created within component constructor).
+   Same as ngControl, but it's not connected to form (unless you do that explicitly)
+ -->
+
+<input type="text" [ngFormControl]="titleControl" />
+
+<!--
+	Input is bound to both Control instance and model.
+	ngModel is NOT a separate directive - it's used as an attribute for ngControl which directly updates the model (no need for two directives doing same thing)
+ -->
+
+<input type="text" ngControl="title" [(ngModel)]="todo.title" />

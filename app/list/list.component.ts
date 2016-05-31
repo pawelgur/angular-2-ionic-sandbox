@@ -1,9 +1,10 @@
-import { Component } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import {TodoService} from "../todo.service";
 import {TodoItem} from "../todo.model";
 import {CreateComponent} from "./create.component";
 import {ActionSheet, NavController} from "ionic-angular";
 import {DetailsPage} from "../details/details.page";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
 	selector: "todo-list",
@@ -16,24 +17,41 @@ import {DetailsPage} from "../details/details.page";
 		}
 	`]
 })
-export class ListComponent {
+export class ListComponent implements OnInit, OnDestroy {
+	todos: TodoItem[] = [];
+	supscriptions = new Subscription();
+
 	constructor(
 		private todoService: TodoService,
 		private nav: NavController
 	){
+
 	}
 
-	// maybe its better to have a property and update it rather than directly getting from service?
-	getTodos(): TodoItem[] {
-		return this.todoService.getTodos();
+	ngOnInit() {
+		this.todoService
+			.getTodos()
+			.subscribe((todos: TodoItem[]) => this.todos = todos);
+
+		this.supscriptions
+			.add(
+				this.todoService.newTodosStream
+					.subscribe((todo: TodoItem) => this.todos.push(todo))
+			).add(
+				this.todoService.deletedTodosStream
+					.subscribe((todo: TodoItem) => {
+						console.log("removing");
+						this.todos = this.todos.filter((item: TodoItem) => item.id !== todo.id);
+					})
+			);
 	}
 
 	toggleTodo(todo: TodoItem) {
-		this.todoService.setTodoDone(todo, !todo.isDone);
+		this.todoService.setDone(todo, !todo.isDone);
 	}
 
 	deleteTodo(todo: TodoItem) {
-		this.todoService.removeTodo(todo);
+		return this.todoService.removeTodo(todo);
 	}
 
 	showActions(todo: TodoItem) {
@@ -43,7 +61,7 @@ export class ListComponent {
 				{
 					text: 'Edit',
 					handler: () => {
-						// not really needed but demonstrates transition chaining
+						// not really needed but demonstrates ionic transition chaining
 						let dissmissing = sheet.dismiss();
 						dissmissing.then(() => this.nav.push(DetailsPage, { todo: todo }));
 						return false;
@@ -57,6 +75,10 @@ export class ListComponent {
 			]
 		});
 		this.nav.present(sheet);
+	}
+
+	ngOnDestroy() {
+		this.supscriptions.unsubscribe();
 	}
 
 }

@@ -20,12 +20,19 @@ export class LatestDoneComponent implements OnDestroy {
 	constructor(
 		private todoService: TodoService
 	){
-		this.latestDone = this.todoService.getLatestDone();
+		this.updateLatest();
 
 		this.subscription
 			.add(this.todoService.newTodosStream.subscribe(this.onTodoCreate.bind(this)))
 			.add(this.todoService.updatedTodosStream.subscribe(this.onTodoUpdate.bind(this)))
 			.add(this.todoService.deletedTodosStream.subscribe(this.onTodoDelete.bind(this)));
+	}
+
+	updateLatest() {
+		this.todoService.getLatestDone()
+			.subscribe((latestDone: TodoItem) => {
+				this.latestDone = latestDone;
+			});
 	}
 
 	onTodoCreate(todo: TodoItem) {
@@ -37,14 +44,14 @@ export class LatestDoneComponent implements OnDestroy {
 	onTodoUpdate(todo: TodoItem): void {
 		if (todo.isDone) {
 			this.latestDone = todo;
-		} else if (this.latestDone === todo) {
-			this.latestDone = this.todoService.getLatestDone();
+		} else if (this.latestDone && this.latestDone.id === todo.id) {
+			this.updateLatest();
 		}
 	}
 
 	onTodoDelete(todo: TodoItem): void {
-		if (this.latestDone === todo) {
-			this.latestDone = this.todoService.getLatestDone();
+		if (this.latestDone && this.latestDone.id === todo.id) {
+			this.updateLatest();
 		}
 	}
 

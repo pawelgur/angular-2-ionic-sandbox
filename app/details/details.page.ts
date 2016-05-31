@@ -20,12 +20,11 @@ export class DetailsPage {
 		private navParams: NavParams,
 		private nav: NavController
 	){
-		this.todo = Object.assign({}, this.navParams.get("todo")); // clone as we don't want to change props without submiting form
+		this.todo = this.navParams.get("todo");
 	}
 
 	onSave() {
-		Object.assign(this.todoService.getTodo(this.todo.id), this.todo);
-		this.goBack();
+		this.todoService.saveTodo(this.todo).subscribe(() => this.goBack());
 	}
 
 	goBack() {
@@ -39,7 +38,7 @@ export class DetailsPage {
 	// 	// titleControl.control is available here (not yet available afterViewInit)
 	// 	if (!this.addedHandlers && this.titleControl.control) {
 	// 		this.titleControl.control.valueChanges
-	// 			// .debounceTime(400) // for some damn reason it doesn't have this method
+	// 			// .debounceTime(400) // for some damn reason it doesn't have this method // UPDATE: rxjs operator not imported
 	// 			.subscribe((title) => {
 	// 				console.log("updating title debounced:", title);
 	// 				this.todo.title = title;
