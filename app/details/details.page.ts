@@ -1,7 +1,7 @@
 import {ViewChild} from "@angular/core";
 import {NgControlName} from "@angular/common";
-import {TodoService} from "../todo.service";
-import {TodoItem} from "../todo.model";
+import {TodoService} from "../todo/todo.service";
+import {TodoItem} from "../todo/todo.model";
 import {CaseLengthValidator} from "./case-length.validator";
 import {Page, NavParams, NavController} from "ionic-angular";
 import {ValidationMessageComponent} from "./validation-message.component";

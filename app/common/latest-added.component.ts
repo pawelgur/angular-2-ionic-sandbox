@@ -1,9 +1,8 @@
 import {Component, OnDestroy} from "@angular/core";
-import {TodoItem} from "../todo.model";
+import {TodoItem} from "../todo/todo.model";
 import {TodoPreviewComponent} from "./todo-preview.component";
-import {TodoService} from "../todo.service";
+import {TodoService} from "../todo/todo.service";
 import {Subscription} from "rxjs/Subscription";
-import {NavController} from "ionic-angular/index";
 
 @Component({
 	selector: "latest-added",

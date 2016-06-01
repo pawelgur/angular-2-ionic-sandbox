@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import {TodoService} from "../todo.service";
-import {TodoItem} from "../todo.model";
+import {TodoService} from "../todo/todo.service";
+import {TodoItem} from "../todo/todo.model";
 import {CreateComponent} from "./create.component";
 import {ActionSheet, NavController} from "ionic-angular";
 import {DetailsPage} from "../details/details.page";

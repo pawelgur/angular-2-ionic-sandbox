@@ -3,9 +3,9 @@ import {HTTP_PROVIDERS} from "@angular/http";
 import {App, MenuController, Nav} from 'ionic-angular';
 import {HomePage} from "./home/home.page";
 import {ListPage} from "./list/list.page";
-import {TodoService} from "./todo.service";
+import {TodoService} from "./todo/todo.service";
 import {FooterComponent} from "./common/footer.component";
-import {TodoClient} from "./todo.client";
+import {TodoClient} from "./todo/todo.client";
 import "./rxjs-operators";
 
 @App({

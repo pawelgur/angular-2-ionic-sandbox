@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {TodoItem} from "../todo.model";
+import {TodoItem} from "../todo/todo.model";
 
 @Component({
 	selector: "todo-preview",
