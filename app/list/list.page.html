@@ -5,6 +5,10 @@
     <ion-title>Todos</ion-title>
 </ion-navbar>
 <ion-content padding>
-    <todo-list></todo-list>
+    <todo-create (create)="onCreate($event)"></todo-create>
+    <todo-list [todos]="todos | async"
+               (toggle)="onToggle($event)"
+               (remove)="onRemove($event)"
+               (edit)="onEdit($event)"></todo-list>
 </ion-content>
 <todo-footer></todo-footer>

@@ -1,7 +1,6 @@
-<todo-create></todo-create>
 <ion-list>
     <ion-item *ngFor="let todo of todos">
-        <ion-checkbox [ngModel]="todo.isDone" (ngModelChange)="toggleTodo(todo)"></ion-checkbox>
+        <ion-checkbox [ngModel]="todo.isDone" (ngModelChange)="toggle.emit(todo.id)"></ion-checkbox>
         <ion-label [class.done]="todo.isDone">
             {{ todo.description }} <ion-note>{{ todo.title }}</ion-note>
         </ion-label>

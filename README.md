@@ -6,7 +6,7 @@ Plan:
 
 1. [x] Read in general about angular 2
 2. [x] Create simple TODO app:
-    1. [x] Todo's list with filtering by group, delete functionality
+    1. [x] Todo's list with delete functionality
     2. [x] Add todo component
     3. [x] Todo edit/details page
     3. [x] Routing:
@@ -17,7 +17,10 @@ Plan:
 4. [x] Transform todo app to Ionic
 5. [ ] Read about these topics in detail and try to implement some examples within app:
     * [ ] angular 2 sdk related topics
-         - [ ] Observables (RXJS)
+         - [x] Observables (RXJS)
+         - [ ] ngrx/store
+            * [ ] refactor app to use store
+            * [ ] implement undo feature
          - [ ] DI
             * [ ] inject a configuration object into service
             * [ ] create a factory and use it (create "test" page if needed)
@@ -25,6 +28,8 @@ Plan:
          - [x] Zones
          - [ ] Change Detection
          - [ ] Unit testing
+            * [ ] test component
+            * [ ] test service with mocked dependencies (including angular, e.g. http)
          - [ ] Creating a library
     * [ ] other angular 2 topics
     * [ ] ionic topics
@@ -35,10 +40,11 @@ Plan:
     * [ ] advanced forms
         - [x] custom validators
         - [ ] custom form control (format value before setting to model)
-        - [ ] implement debounce
+        - [ ] implement debounce on model update and validation
     * [ ] create a pipe
     * [ ] create simple animation
     * [ ] create angular2 + ionic project from scratch (configuring all build and run explicitly, without using seed)
+    * [ ] add filtering by category in todos list
 
 
 Notes:

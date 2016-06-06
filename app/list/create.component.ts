@@ -1,5 +1,6 @@
-import { Component } from "@angular/core";
-import {TodoService} from "../todo/todo.service";
+import { Component, Output, EventEmitter } from "@angular/core";
+import {TodoItem} from "../todo/todo.model";
+import {TodoHelperService} from "../todo/todo-helper.service";
 
 @Component({
 	selector: "todo-create",
@@ -8,15 +9,15 @@ import {TodoService} from "../todo/todo.service";
 export class CreateComponent {
 	description: string;
 
+	@Output() create = new EventEmitter<TodoItem>();
+
 	constructor(
-		private todoService: TodoService
+		private todoHelper: TodoHelperService
 	){
 	}
 
 	onCreate() {
-		if (this.description) {
-			this.todoService.createTodo(this.description);
-		}
+		this.create.emit(this.todoHelper.createTodo(this.description));
 		this.description = "";
 	}
 }

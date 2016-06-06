@@ -7,10 +7,17 @@ import {TodoService} from "./todo/todo.service";
 import {FooterComponent} from "./common/footer.component";
 import {TodoClient} from "./todo/todo.client";
 import "./rxjs-operators";
+import {provideStore} from "@ngrx/store";
+import {todosReducer} from "./todos-reducer";
+import {TodoHelperService} from "./todo/todo-helper.service";
+
 
 @App({
   templateUrl: 'build/app.html',
-  providers: [HTTP_PROVIDERS, TodoService, TodoClient],
+  providers: [
+    provideStore({ todos: todosReducer }), HTTP_PROVIDERS, TodoService,
+    TodoClient, TodoHelperService
+  ],
   directives: [FooterComponent],
   config: {} // http://ionicframework.com/docs/v2/api/config/Config/
 })

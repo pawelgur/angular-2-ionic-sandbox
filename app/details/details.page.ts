@@ -1,10 +1,8 @@
-import {ViewChild} from "@angular/core";
-import {NgControlName} from "@angular/common";
-import {TodoService} from "../todo/todo.service";
-import {TodoItem} from "../todo/todo.model";
+import {TodoItem, AppState, ACTIONS} from "../todo/todo.model";
 import {CaseLengthValidator} from "./case-length.validator";
 import {Page, NavParams, NavController} from "ionic-angular";
 import {ValidationMessageComponent} from "./validation-message.component";
+import {Store} from "@ngrx/store";
 
 @Page({
 	templateUrl: "build/details/details.page.html",
@@ -13,18 +11,20 @@ import {ValidationMessageComponent} from "./validation-message.component";
 export class DetailsPage {
 	todo: TodoItem;
 
-	@ViewChild("title") titleControl: NgControlName;
-
 	constructor(
-		private todoService: TodoService,
 		private navParams: NavParams,
-		private nav: NavController
+		private nav: NavController,
+		private store: Store<AppState>
 	){
-		this.todo = this.navParams.get("todo");
+		this.todo = Object.assign({}, this.navParams.get("todo")); // clone so we won't change state before saving
 	}
 
 	onSave() {
-		this.todoService.saveTodo(this.todo).subscribe(() => this.goBack());
+		this.store.dispatch({
+			type: ACTIONS.TODOS.UPDATE,
+			payload: this.todo
+		});
+		this.goBack();
 	}
 
 	goBack() {
@@ -34,6 +34,7 @@ export class DetailsPage {
 
 
 	// trying to implement debounce on model update and validation triggers, not succesful
+	// @ViewChild("title") titleControl: NgControlName;
 	// ngAfterViewChecked() {
 	// 	// titleControl.control is available here (not yet available afterViewInit)
 	// 	if (!this.addedHandlers && this.titleControl.control) {

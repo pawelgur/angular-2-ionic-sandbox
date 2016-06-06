@@ -1,49 +1,17 @@
-import {Component, OnDestroy} from "@angular/core";
-import {TodoItem} from "../todo/todo.model";
+import {Component, Input, ChangeDetectionStrategy} from "@angular/core";
 import {TodoPreviewComponent} from "./todo-preview.component";
-import {TodoService} from "../todo/todo.service";
-import {Subscription} from "rxjs/Subscription";
+import {TodoItem} from "../todo/todo.model";
 
 @Component({
 	selector: "latest-added",
 	template: `
 	<ion-icon name="add-circle" secondary medium></ion-icon>
-	<ion-badge>{{ latestTodo?.createDate | date:"HHmmss" }}</ion-badge>
-	<todo-preview [todo]="latestTodo" *ngIf="latestTodo"></todo-preview>
+	<ion-badge>{{ todo?.createDate | date:"HHmmss" }}</ion-badge>
+	<todo-preview [todo]="todo" *ngIf="todo"></todo-preview>
 	`,
-	directives: [TodoPreviewComponent]
+	directives: [TodoPreviewComponent],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LatestAddedComponent implements OnDestroy {
-	latestTodo: TodoItem;
-	subscription = new Subscription();
-
-	constructor(
-		private todoService: TodoService
-	){
-		this.updateLatest();
-
-		this.subscription
-			.add(
-				this.todoService.newTodosStream.subscribe((todo: TodoItem) => {
-					this.latestTodo = todo;
-				})
-			).add(
-				this.todoService.deletedTodosStream.subscribe((todo: TodoItem) => {
-					if (this.latestTodo && this.latestTodo.id === todo.id) {
-						this.updateLatest();
-					}
-				})
-			);
-	}
-
-	ngOnDestroy(): any {
-		this.subscription.unsubscribe();
-	}
-
-	updateLatest() {
-		this.todoService.getLatestAdded()
-			.subscribe((todo: TodoItem) => {
-				this.latestTodo = todo;
-			});
-	}
+export class LatestAddedComponent {
+	@Input() todo: TodoItem;
 }

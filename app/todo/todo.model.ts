@@ -17,3 +17,16 @@ export interface TodoDto {
 	updateDate: string;
 	createDate: string;
 }
+
+export interface AppState {
+	todos: TodoItem[]
+}
+
+export const ACTIONS = {
+	TODOS: {
+		CREATE: "todo-create",
+		REMOVE: "todo-remove",
+		TOGGLE: "todo-toggle",
+		UPDATE: "todo-update"
+	}
+};
