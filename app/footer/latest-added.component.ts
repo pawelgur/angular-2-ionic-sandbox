@@ -1,6 +1,6 @@
 import {Component, Input, ChangeDetectionStrategy} from "@angular/core";
 import {TodoPreviewComponent} from "./todo-preview.component";
-import {TodoItem} from "../todo/todo.model";
+import {TodoItem} from "../todos/todos.model";
 
 @Component({
 	selector: "latest-added",

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from "@angular/core";
-import {TodoItem} from "../todo/todo.model";
+import {TodoItem} from "../todos/todos.model";
 import {ActionSheet, NavController} from "ionic-angular";
 import {DetailsPage} from "../details/details.page";
 
@@ -17,7 +17,7 @@ import {DetailsPage} from "../details/details.page";
 export class ListComponent {
 	@Input() todos: TodoItem[] = [];
 
-	@Output() toggle = new EventEmitter<number>();
+	@Output() toggle = new EventEmitter<TodoItem>();
 	@Output() remove = new EventEmitter<number>();
 	@Output() edit = new EventEmitter<TodoItem>(); // would use id rather than object if details page would be available from other locations
 

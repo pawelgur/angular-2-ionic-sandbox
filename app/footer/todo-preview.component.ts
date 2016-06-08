@@ -1,5 +1,5 @@
 import {Component, Input, ChangeDetectionStrategy} from "@angular/core";
-import {TodoItem} from "../todo/todo.model";
+import {TodoItem} from "../todos/todos.model";
 
 @Component({
 	selector: "todo-preview",

@@ -1,6 +1,6 @@
-import { Component, Output, EventEmitter } from "@angular/core";
-import {TodoItem} from "../todo/todo.model";
-import {TodoHelperService} from "../todo/todo-helper.service";
+import {Output, EventEmitter, Component} from "@angular/core";
+import {TodoItem} from "../todos/todos.model";
+import {TodosService} from "../todos/todos.service";
 
 @Component({
 	selector: "todo-create",
@@ -12,7 +12,7 @@ export class CreateComponent {
 	@Output() create = new EventEmitter<TodoItem>();
 
 	constructor(
-		private todoHelper: TodoHelperService
+		private todoHelper: TodosService
 	){
 	}
 

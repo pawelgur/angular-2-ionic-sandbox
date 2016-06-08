@@ -19,14 +19,10 @@ export interface TodoDto {
 }
 
 export interface AppState {
-	todos: TodoItem[]
+	todos: TodosState
 }
 
-export const ACTIONS = {
-	TODOS: {
-		CREATE: "todo-create",
-		REMOVE: "todo-remove",
-		TOGGLE: "todo-toggle",
-		UPDATE: "todo-update"
-	}
-};
+export interface TodosState {
+	items: TodoItem[],
+	lastId: number
+}

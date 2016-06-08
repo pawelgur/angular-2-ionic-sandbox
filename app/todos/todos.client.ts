@@ -1,15 +1,18 @@
 import {Injectable} from "@angular/core";
 import {Http, Response, Headers, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs/Observable";
-import {TodoItem, TodoDto} from "./todo.model";
+import {TodoItem, TodoDto} from "./todos.model";
+import {Subject} from "rxjs/Rx";
+import {TodosService} from "./todos.service";
 
 @Injectable()
-export class TodoClient {
+export class TodosClient {
 	todosUrl = "http://localhost:8888/todos";
 	commonOptions: RequestOptions;
 
 	constructor(
-		private http: Http
+		private http: Http,
+		private todoHelper: TodosService
 	){
 		let headers = new Headers({ 'Content-Type': 'application/json' });
 		this.commonOptions = new RequestOptions({ headers: headers });
@@ -20,7 +23,8 @@ export class TodoClient {
 			.get(this.todosUrl)
 			.map(this.unwrap())
 			.map((todos: TodoDto[]) => {
-				return todos.map(this.mapTodo);
+				return todos.map(this.mapTodo)
+					.sort(this.todoHelper.todoUpdateComparator("createDate"));
 			});
 	}
 

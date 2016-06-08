@@ -1,8 +1,9 @@
-import {TodoItem, AppState, ACTIONS} from "../todo/todo.model";
+import {TodoItem, AppState} from "../todos/todos.model";
 import {CaseLengthValidator} from "./case-length.validator";
 import {Page, NavParams, NavController} from "ionic-angular";
 import {ValidationMessageComponent} from "./validation-message.component";
 import {Store} from "@ngrx/store";
+import {TodosActions} from "../todos/todos.actions";
 
 @Page({
 	templateUrl: "build/details/details.page.html",
@@ -17,18 +18,17 @@ export class DetailsPage {
 		private store: Store<AppState>
 	){
 		this.todo = Object.assign({}, this.navParams.get("todo")); // clone so we won't change state before saving
+		// in case this page would be accessible from page without full TodoItem - it would be queried from server
 	}
 
 	onSave() {
-		this.store.dispatch({
-			type: ACTIONS.TODOS.UPDATE,
-			payload: this.todo
-		});
+		this.todo.updateDate = new Date();
+		this.store.dispatch(TodosActions.update(this.todo));
 		this.goBack();
 	}
 
 	goBack() {
-		// for some reason pop doesn't update z-index - overlaps list page (looks like ionic bug)
+		// for some reason pop() doesn't update z-index - overlaps list page (looks like ionic bug)
 		this.nav.remove();
 	}
 

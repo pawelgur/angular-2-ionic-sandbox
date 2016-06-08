@@ -19,8 +19,9 @@ Plan:
     * [ ] angular 2 sdk related topics
          - [x] Observables (RXJS)
          - [ ] ngrx/store
-            * [ ] refactor app to use store
+            * [x] refactor app to use store
             * [ ] implement undo feature
+            * [ ] implement loaders and notifications for api requests (delay responses)
          - [ ] DI
             * [ ] inject a configuration object into service
             * [ ] create a factory and use it (create "test" page if needed)
@@ -35,8 +36,8 @@ Plan:
     * [ ] ionic topics
 6. [ ] Other:
     * [x] create test api endpoint and make an http request
-    * [ ] use event emitter to trigger event in component (e.g. timer with event of each 10s)
-    * [ ] use childView in parent component
+    * [x] use event emitter to trigger event in component (e.g. timer with event of each 10s)
+    * [x] use childView in parent component
     * [ ] advanced forms
         - [x] custom validators
         - [ ] custom form control (format value before setting to model)

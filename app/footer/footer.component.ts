@@ -2,9 +2,10 @@ import {Component} from "@angular/core";
 import {LatestDoneComponent} from "./latest-done.component";
 import {LatestAddedComponent} from "./latest-added.component";
 import {Store} from "@ngrx/store";
-import {AppState, TodoItem} from "../todo/todo.model";
-import {TodoHelperService} from "../todo/todo-helper.service";
+import {AppState, TodoItem, TodosState} from "../todos/todos.model";
+import {TodosService} from "../todos/todos.service";
 import {Observable} from "rxjs/Observable";
+import {getTodos} from "../todos/todos.reducer";
 
 @Component({
 	selector: "todo-footer",
@@ -20,22 +21,22 @@ export class FooterComponent {
 
 	constructor(
 		private store: Store<AppState>,
-		private todoHelper: TodoHelperService
+		private todoHelper: TodosService
 	){
 		this.latestCreatedTodo = this.store
-			.select("todos")
+			.let(getTodos())
 			.map((todos: TodoItem[]) => {
 				return this.todoHelper.getLatestAdded(todos);
 			})
 			.distinctUntilChanged(); // don't emit if latest added didn't change (otherwise it would update on each change to "todos")
 		this.latestDoneTodo = this.store
-			.select("todos")
+			.let(getTodos())
 			.map((todos: TodoItem[]) => {
 				return this.todoHelper.getLatestDone(todos);
 			})
 			.distinctUntilChanged();
 		// let() operator should be used if we would like to inject map() or any other operators without modifying this source
-		// "latestCreatedTodo" slectors might be extracted, but they will not be reused anywhere else at the moment
+		// "latestCreatedTodo" selectors might be extracted, but they will not be reused anywhere else at the moment
 	}
 
 

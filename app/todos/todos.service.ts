@@ -1,9 +1,23 @@
 import {Injectable} from "@angular/core";
-import {TodoItem} from "./todo.model";
+import {TodoItem, AppState, TodosState} from "./todos.model";
+import {Store} from "@ngrx/store";
+import {Subscription} from "rxjs/Rx";
 
 @Injectable()
-export class TodoHelperService {
+export class TodosService {
 	lastId = 0;
+	subscription: Subscription;
+
+	constructor(
+		private store: Store<AppState>
+	) {
+		this.subscription = this.store.select("todos")
+			.map((state: TodosState) => state.lastId)
+			.distinctUntilChanged()
+			.subscribe((lastId: number) => {
+				this.lastId = lastId;
+			});
+	}
 
 	createTodo(description: string, isDone = false): TodoItem {
 		let todo: TodoItem = {
@@ -15,8 +29,7 @@ export class TodoHelperService {
 		};
 		this.lastId++;
 
-		// we will have full state (including todos) on client, try to implement this to work with
-		// traditional rest API
+		// we will have full state (including todos) on client, try to implement this to work with traditional rest API
 		// should whole state be saved or only data?
 
 		return todo;
