@@ -3,6 +3,11 @@
         <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Todos</ion-title>
+    <ion-buttons end *ngIf="undoEnabled | async">
+        <button (click)="undo()">
+            <ion-icon name="undo"></ion-icon>
+        </button>
+    </ion-buttons>
 </ion-navbar>
 <ion-content padding>
     <todo-create (create)="onCreate($event)"></todo-create>

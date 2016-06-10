@@ -1,3 +1,5 @@
+import {Action} from "@ngrx/store";
+
 export interface TodoItem {
 	id: number;
 	title?: string;
@@ -24,5 +26,8 @@ export interface AppState {
 
 export interface TodosState {
 	items: TodoItem[],
-	lastId: number
+	lastId: number,
+	actions: Action[],
+	prePersistedObjects: TodoItem[],
+	undoEnabled: boolean
 }

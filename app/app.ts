@@ -1,7 +1,6 @@
-import {ViewChild, OpaqueToken, provide, Inject, OnDestroy} from "@angular/core";
+import {ViewChild, OpaqueToken, provide, Inject} from "@angular/core";
 import {HTTP_PROVIDERS} from "@angular/http";
 import {App, MenuController, Nav} from 'ionic-angular';
-import {Subscription} from "rxjs/Rx";
 import {provideStore, Store} from "@ngrx/store";
 import {StateUpdates, mergeEffects} from "@ngrx/effects";
 import "./rxjs-operators";
@@ -27,19 +26,18 @@ const EFFECTS = new OpaqueToken('Effects');
 	directives: [FooterComponent],
 	config: {} // http://ionicframework.com/docs/v2/api/config/Config/
 })
-export class MyApp implements OnDestroy {
+export class MyApp {
 	rootPage: any = ListPage;
 	listPage = ListPage;
 	homePage = HomePage;
-	subscriptions = new Subscription();
 	@ViewChild(Nav) nav;
 
 	constructor(
 		private menu: MenuController,
-		@Inject(EFFECTS) effects: any[],
-		store: Store<AppState>
+		private store: Store<AppState>,
+		@Inject(EFFECTS) effects: any[]
 	) {
-		this.subscriptions = mergeEffects(effects).subscribe(store); // run effects explicitly
+		mergeEffects(effects).subscribe(store); // run effects explicitly
 	}
 
 	openPage(page: any) {
@@ -47,9 +45,5 @@ export class MyApp implements OnDestroy {
 		// if root is set somewhere else (with Nav), this.rootPage doesn't update (some kind of two-way binding is needed here)
 		// this.rootPage = page;
 		this.menu.close();
-	}
-
-	ngOnDestroy() {
-		this.subscriptions.unsubscribe();
 	}
 }

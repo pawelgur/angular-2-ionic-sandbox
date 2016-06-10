@@ -66,5 +66,19 @@ export class TodosActions {
 		};
 	}
 
+	static UNDO = "undo";
+	static undo(): Action {
+		return {
+			type: TodosActions.UNDO
+		}
+	}
+
+	static UNDO_SUCCESS = "undo-success";
+	static  undoSuccess() {
+		return {
+			type: TodosActions.UNDO_SUCCESS
+		}
+	}
+
 
 }

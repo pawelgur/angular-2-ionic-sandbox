@@ -20,8 +20,9 @@ Plan:
          - [x] Observables (RXJS)
          - [ ] ngrx/store
             * [x] refactor app to use store
-            * [ ] implement undo feature
+            * [x] implement undo feature
             * [ ] implement loaders and notifications for api requests (delay responses)
+            * [ ] try out ngrx devtools
          - [ ] DI
             * [ ] inject a configuration object into service
             * [ ] create a factory and use it (create "test" page if needed)

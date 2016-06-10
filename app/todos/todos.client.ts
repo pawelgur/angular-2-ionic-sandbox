@@ -2,7 +2,6 @@ import {Injectable} from "@angular/core";
 import {Http, Response, Headers, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {TodoItem, TodoDto} from "./todos.model";
-import {Subject} from "rxjs/Rx";
 import {TodosService} from "./todos.service";
 
 @Injectable()

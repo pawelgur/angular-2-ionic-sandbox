@@ -1,12 +1,12 @@
 import {Page, NavController} from "ionic-angular";
 import {ListComponent} from "./list.component";
 import {CreateComponent} from "./create.component";
-import {TodoItem, AppState, TodosState} from "../todos/todos.model";
+import {TodoItem, AppState} from "../todos/todos.model";
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs/Observable";
 import {DetailsPage} from "../details/details.page";
 import {TodosActions} from "../todos/todos.actions";
-import {getTodos} from "../todos/todos.reducer";
+import {getTodos, getUndoEnabled} from "../todos/todos.reducer";
 
 @Page({
 	templateUrl: "build/list/list.page.html",
@@ -14,12 +14,14 @@ import {getTodos} from "../todos/todos.reducer";
 })
 export class ListPage {
 	todos: Observable<TodoItem[]>;
+	undoEnabled: Observable<boolean>;
 
 	constructor(
 		private store: Store<AppState>,
 		private nav: NavController
 	){
 		this.todos = store.let(getTodos());
+		this.undoEnabled = store.let(getUndoEnabled());
 	}
 
 	onCreate(todo: TodoItem) {
@@ -32,13 +34,18 @@ export class ListPage {
 
 	onToggle(todo: TodoItem) {
 		// maybe this update code should be in reducer? Maybe yes, but problem is with supplying final object to api
-		todo.updateDate = new Date();
-		todo.isDone = !todo.isDone;
-		this.store.dispatch(TodosActions.toggle(todo));
+		let updatedTodo = Object.assign({}, todo); // don't mutate current state directly
+		updatedTodo.updateDate = new Date();
+		updatedTodo.isDone = !updatedTodo.isDone;
+		this.store.dispatch(TodosActions.toggle(updatedTodo));
 	}
 
 	onEdit(todo: TodoItem) {
 		this.nav.push(DetailsPage, { todo: todo });
+	}
+
+	undo() {
+		this.store.dispatch(TodosActions.undo());
 	}
 
 }

@@ -29,9 +29,6 @@ export class TodosService {
 		};
 		this.lastId++;
 
-		// we will have full state (including todos) on client, try to implement this to work with traditional rest API
-		// should whole state be saved or only data?
-
 		return todo;
 	}
 	getLatestDone(todos: TodoItem[]): TodoItem {
