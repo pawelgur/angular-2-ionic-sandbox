@@ -1,0 +1,19 @@
+<ion-navbar *navbar>
+    <button ion-button menuToggle icon-only>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Todos</ion-title>
+    <ion-buttons end *ngIf="undoEnabled | async">
+        <button ion-button (click)="undo()" icon-only>
+            <ion-icon name="undo"></ion-icon>
+        </button>
+    </ion-buttons>
+</ion-navbar>
+<ion-content padding>
+    <todo-create (create)="onCreate($event)"></todo-create>
+    <todo-list [todos]="todos | async"
+               (toggle)="onToggle($event)"
+               (remove)="onRemove($event)"
+               (edit)="onEdit($event)"></todo-list>
+</ion-content>
+<todo-footer></todo-footer>

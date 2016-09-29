@@ -1,0 +1,11 @@
+<form (submit)="onCreate()">
+    <!--
+        we use template reference variable (#descriptionInput) because:
+            - easy to use
+            - we leave input knowledge to template (e.g. that input has property "value") and not pass it with $event for component to retrieve
+        -->
+    <ion-item>
+        <ion-input [(ngModel)]="description" #descriptionInput required placeholder="New todo"></ion-input>
+        <button ion-button type="submit" secondary small item-right>Add</button>
+    </ion-item>
+</form>

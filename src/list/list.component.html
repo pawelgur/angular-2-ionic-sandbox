@@ -1,0 +1,11 @@
+<ion-list>
+    <ion-item *ngFor="let todo of todos">
+        <ion-checkbox [ngModel]="todo.isDone" (ngModelChange)="toggle.emit(todo)"></ion-checkbox>
+        <ion-label [class.done]="todo.isDone">
+            {{ todo.description }} <ion-note>{{ todo.title }}</ion-note>
+        </ion-label>
+        <button ion-button item-right large clear (click)="showActions(todo)" icon-only>
+            <ion-icon name="arrow-dropdown-circle"></ion-icon>
+        </button>
+    </ion-item>
+</ion-list>
